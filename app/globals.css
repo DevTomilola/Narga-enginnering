@@ -1,0 +1,82 @@
+/* Import Fonts - MUST COME FIRST */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* Then import Tailwind */
+@import "tailwindcss";
+
+/* Custom Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #ffffff;
+    color: #1f2937; /* Gray-800 for readability */
+    
+    /* Custom Scrollbar */
+    scrollbar-color: #523831 #f3f4f6;
+    scrollbar-width: thin;
+}
+
+/* Webkit Scrollbar Styling */
+body::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+body::-webkit-scrollbar-track {
+    background: #f3f4f6;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #523831;
+    border-radius: 20px;
+    border: 2px solid #ffffff;
+}
+
+/* Selection Color */
+::selection {
+  background-color: #523831;
+  color: #ffffff;
+}
+
+/* Utility Classes */
+/* Gradient Text: Deep Brown to Lighter Brown */
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to right, #523831, #8a6d65);
+}
+
+/* Glass Panel: White with slight transparency and subtle brown border */
+.glass-panel {
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(82, 56, 49, 0.1);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Navbar: High blur white background */
+.glass-nav {
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(82, 56, 49, 0.1);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
