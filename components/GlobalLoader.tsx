@@ -1,25 +1,21 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 
 /**
- * A "Smart" Global Loader for Next.js App Router.
- * Features:
- * 1. Triggers on all internal link clicks (Soft Navigation)
- * 2. Enforces a minimum display time (500ms) to prevent fast flashes
- * 3. Auto-hides when the route (pathname or query) changes
- * 4. Accessible with proper ARIA attributes
+ * Core Loader Logic
+ * Separate component effectively isolates the useSearchParams hook,
+ * allowing us to wrap it in Suspense below.
  */
-const GlobalLoader = () => {
+const LoaderLogic = () => {
   const [isLoading, setIsLoading] = useState(false);
   const pathname = usePathname();
   const searchParams = useSearchParams();
   
-  // Refs to track loading state and timeouts
   const loadingStartTime = useRef<number | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const MINIMUM_LOADING_TIME = 500;
+  const MINIMUM_LOADING_TIME = 500; // ms
 
   // Cleanup timeouts on unmount
   useEffect(() => {
@@ -30,7 +26,7 @@ const GlobalLoader = () => {
     };
   }, []);
 
-  // Stop loading when the route changes
+  // 1. Stop loading when route changes
   useEffect(() => {
     if (isLoading && loadingStartTime.current) {
       const elapsedTime = Date.now() - loadingStartTime.current;
@@ -41,7 +37,6 @@ const GlobalLoader = () => {
         clearTimeout(timeoutRef.current);
       }
 
-      // Set new timeout to hide loader
       timeoutRef.current = setTimeout(() => {
         setIsLoading(false);
         loadingStartTime.current = null;
@@ -55,7 +50,7 @@ const GlobalLoader = () => {
     }
   }, [pathname, searchParams, isLoading]);
 
-  // Start loading when internal links are clicked
+  // 2. Start loading on internal link clicks
   useEffect(() => {
     const handleAnchorClick = (event: MouseEvent) => {
       const anchor = (event.target as Element).closest('a');
@@ -118,6 +113,19 @@ const GlobalLoader = () => {
   );
 };
 
+/**
+ * Main Export
+ * Wraps the logic in Suspense to satisfy Next.js build requirements
+ * for useSearchParams().
+ */
+const GlobalLoader = () => {
+  return (
+    <Suspense fallback={null}>
+      <LoaderLogic />
+    </Suspense>
+  );
+};
+
 const styles = {
   container: {
     position: 'fixed' as const,
@@ -131,6 +139,7 @@ const styles = {
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     zIndex: 9999,
     backdropFilter: 'blur(4px)',
+    pointerEvents: 'none' as const,
   },
   spinnerWrapper: {
     position: 'relative' as const,
