@@ -80,3 +80,29 @@ body::-webkit-scrollbar-thumb {
   -webkit-line-clamp: 2;
   line-clamp: 2;
 }
+
+/* NProgress customization */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: #523831;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+}
+
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  box-shadow: 0 0 10px #523831, 0 0 5px #523831;
+  opacity: 1;
+  transform: rotate(3deg) translate(0px, -4px);
+}

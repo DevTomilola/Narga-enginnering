@@ -1,8 +1,9 @@
 'use client';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { ArrowRight, Shield, Cpu, Globe, Zap, Users, Award, CheckCircle, Star } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ArrowRight, Shield, Cpu, Globe, Zap, Users, Award, CheckCircle, Star, Plus, Minus } from 'lucide-react';
 import Image from 'next/image';
+import { useState } from 'react';
 
 // Subtle Floating Circles Animation
 function FloatingCircles() {
@@ -100,6 +101,126 @@ function FloatingCircles() {
         }}
       />
     </div>
+  );
+}
+
+// FAQ Component
+function FAQSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const faqs = [
+    {
+      question: "What industries does Narga Engineering serve?",
+      answer: "We primarily serve the automotive, aerospace, and eMobility industries with precision engineering solutions, embedded software development, and semiconductor technologies."
+    },
+    {
+      question: "Are your products ISO certified?",
+      answer: "Yes, we are ISO 9001:2015 certified for quality management and ISO 27001 certified for information security management, ensuring the highest standards in all our products and services."
+    },
+    {
+      question: "Do you offer custom engineering solutions?",
+      answer: "Absolutely. We specialize in custom embedded software development, automotive electronics, and semiconductor solutions tailored to meet specific client requirements and industry standards."
+    },
+    {
+      question: "What is your typical project timeline?",
+      answer: "Project timelines vary based on complexity. Standard products are available immediately, while custom solutions typically take 4-12 weeks depending on requirements. We provide detailed timelines during project scoping."
+    },
+    {
+      question: "Do you provide technical support?",
+      answer: "Yes, we offer comprehensive technical support including installation guidance, troubleshooting, and maintenance services. Our support team is available during business hours with emergency support for critical issues."
+    },
+    {
+      question: "Are your products compatible with international standards?",
+      answer: "All our products are designed to meet international standards including ISO, IEC, and automotive industry-specific regulations. We ensure global compatibility and compliance."
+    }
+  ];
+
+  const toggleFAQ = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+  return (
+    <section className="py-20 bg-white">
+      <div className="max-w-4xl mx-auto px-4">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold text-[#523831] mb-6">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Find answers to common questions about our products, services, and company.
+          </p>
+        </motion.div>
+
+        <div className="space-y-4">
+          {faqs.map((faq, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow"
+            >
+              <button
+                onClick={() => toggleFAQ(index)}
+                className="w-full px-6 py-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+              >
+                <span className="text-lg font-semibold text-gray-900 pr-4">
+                  {faq.question}
+                </span>
+                <div className="shrink-0 w-6 h-6 flex items-center justify-center">
+                  {openIndex === index ? (
+                    <Minus size={20} className="text-[#523831]" />
+                  ) : (
+                    <Plus size={20} className="text-[#523831]" />
+                  )}
+                </div>
+              </button>
+              
+              <AnimatePresence>
+                {openIndex === index && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-6 pb-6">
+                      <p className="text-gray-600 leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mt-12"
+        >
+          <p className="text-gray-600 mb-6">
+            Still have questions? We're here to help.
+          </p>
+          <Link 
+            href="/contact" 
+            className="inline-flex items-center gap-3 px-8 py-4 bg-[#523831] hover:bg-[#8a6d65] text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl"
+          >
+            Contact Us <ArrowRight size={20} />
+          </Link>
+        </motion.div>
+      </div>
+    </section>
   );
 }
 
@@ -323,6 +444,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <FAQSection />
 
       {/* Testimonials */}
       <section className="py-20 bg-[#faf9f7]">

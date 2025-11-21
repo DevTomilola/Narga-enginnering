@@ -8,7 +8,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { products } from '@/lib/products';
 
 const navLinks = [
-  { name: 'About', href: '/about' },
   { name: 'Services', href: '/services' },
   { name: 'Contact', href: '/contact' },
 ];
@@ -16,6 +15,7 @@ const navLinks = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [hoverProducts, setHoverProducts] = useState(false);
+  const [hoverAbout, setHoverAbout] = useState(false);
   const pathname = usePathname();
 
   return (
@@ -111,9 +111,65 @@ export default function Navbar() {
                         >
                           <div className="text-sm font-bold text-gray-900 group-hover/item:text-[#523831]">{product.name}</div>
                           <div className="text-xs text-gray-500 truncate">{product.tagline}</div>
-                          {/* Removed Coming Soon tag */}
                         </Link>
                       ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* ABOUT DROPDOWN with Line Animation */}
+            <div 
+              className="relative group"
+              onMouseEnter={() => setHoverAbout(true)}
+              onMouseLeave={() => setHoverAbout(false)}
+            >
+              <button className="relative flex items-center gap-1 text-gray-600 group-hover:text-[#523831] text-sm font-medium py-2 focus:outline-none transition-colors">
+                <span className="relative z-10">About</span>
+                <ChevronDown size={14} className={`relative z-10 transition-transform duration-200 ${hoverAbout ? 'rotate-180' : ''}`} />
+                <motion.div 
+                  className="absolute bottom-0 left-0 h-0.5 bg-[#523831]"
+                  initial={{ width: 0 }}
+                  whileHover={{ width: "100%" }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                />
+                {(pathname.startsWith('/about') || pathname === '/about' || pathname === '/company-profile') && (
+                  <motion.div 
+                    className="absolute bottom-0 left-0 h-0.5 bg-[#523831]"
+                    initial={{ width: 0 }}
+                    animate={{ width: "100%" }}
+                    transition={{ duration: 0.3 }}
+                  />
+                )}
+              </button>
+
+              <AnimatePresence>
+                {hoverAbout && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 15 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute left-0 top-full w-56 pt-4"
+                  >
+                    <div className="bg-white border border-gray-100 rounded-xl shadow-xl overflow-hidden p-3 ring-1 ring-black/5">
+                      <Link 
+                        href="/about"
+                        className="block px-4 py-3 rounded-lg hover:bg-[#f5f0ee] transition-colors group/item"
+                        onClick={() => setHoverAbout(false)}
+                      >
+                        <div className="text-sm font-bold text-gray-900 group-hover/item:text-[#523831]">About Us</div>
+                        <div className="text-xs text-gray-500">Our story and mission</div>
+                      </Link>
+                      <Link 
+                        href="/company-profile"
+                        className="block px-4 py-3 rounded-lg hover:bg-[#f5f0ee] transition-colors group/item"
+                        onClick={() => setHoverAbout(false)}
+                      >
+                        <div className="text-sm font-bold text-gray-900 group-hover/item:text-[#523831]">Company Profile</div>
+                        <div className="text-xs text-gray-500">Business details & certifications</div>
+                      </Link>
                     </div>
                   </motion.div>
                 )}
@@ -205,10 +261,34 @@ export default function Navbar() {
                      pathname === `/products/${p.slug || p.id}` ? 'bg-[#f5f0ee] text-[#523831]' : 'hover:bg-[#f5f0ee]'
                    }`}
                  >
-                   {/* Removed the flex container and SOON tag */}
                    {p.name}
                  </Link>
               ))}
+
+              {/* About Section */}
+              <div className="px-3 py-3 text-[#523831] font-bold text-xs uppercase tracking-wider opacity-70 border-b border-gray-100">
+                About
+              </div>
+              
+              <Link 
+                href="/about" 
+                onClick={() => setIsOpen(false)} 
+                className={`block px-3 py-2 text-gray-600 pl-6 rounded-lg transition-colors ${
+                  pathname === '/about' ? 'bg-[#f5f0ee] text-[#523831]' : 'hover:bg-[#f5f0ee]'
+                }`}
+              >
+                About Us
+              </Link>
+              
+              <Link 
+                href="/company-profile" 
+                onClick={() => setIsOpen(false)} 
+                className={`block px-3 py-2 text-gray-600 pl-6 rounded-lg transition-colors ${
+                  pathname === '/company-profile' ? 'bg-[#f5f0ee] text-[#523831]' : 'hover:bg-[#f5f0ee]'
+                }`}
+              >
+                Company Profile
+              </Link>
 
               {/* Other Links */}
               {navLinks.map(link => (

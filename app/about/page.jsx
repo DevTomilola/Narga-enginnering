@@ -105,7 +105,7 @@ export default function About() {
               <h2 className="text-xs font-mono text-[#523831]/70 tracking-wider mb-2 uppercase font-bold">Corporate Profile</h2>
               <h3 className="text-3xl font-bold text-[#523831] mb-4">Leadership &<br/>Origins</h3>
               <p className="text-gray-600 leading-relaxed">
-                Founded by visionaries <strong>Mula Durga Reddy</strong> and <strong>Mula Venkata Narasimha Reddy</strong>, Narga Engineering has rapidly evolved from a concept to a certified manufacturer.
+                Founded by visionary <strong>Mula Venkata Narasimha Reddy</strong>, Narga Engineering has rapidly evolved from a concept to a certified manufacturer.
               </p>
              </div>
 

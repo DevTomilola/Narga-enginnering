@@ -1,4 +1,4 @@
-import { Facebook, Linkedin, Instagram, Mail, MapPin, Phone } from 'lucide-react';
+import { Facebook, Linkedin, Instagram, MessageCircle, Mail, MapPin, Phone } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           
-          {/* Brand */}
+          {/* Brand Section */}
           <div>
             <div className="flex items-center gap-3 mb-6">
               <div className="relative w-10 h-10">
@@ -26,15 +26,37 @@ export default function Footer() {
               Revolutionizing automotive and aerospace industries with precision engineering and semiconductor excellence.
             </p>
             
-            {/* Additional Logo/Image */}
-            <div className="relative w-16 h-16">
-              <Image
-                src="/logo/logo.png" 
-                alt="ISO Certified"
-                width={128}
-                height={64}
-                className="object-contain"
-              />
+            {/* Three Logos - Fixed sizing */}
+            <div className="flex gap-4 items-center">
+              <div className="relative w-16 h-16 bg-white/10 rounded-lg p-2">
+                <Image
+                  src="/logo/logo.png"
+                  alt="Certified"
+                  width={64}
+                  height={64}
+                  className="object-contain"
+                />
+              </div>
+        
+              <div className="relative w-16 h-16 bg-white/10 rounded-lg p-2">
+                <Image
+                  src="/logo/msme.png"
+                  alt="MSME Certified"
+                  width={64}
+                  height={64}
+                  className="object-contain"
+                />
+              </div>
+              
+              <div className="relative w-16 h-16 bg-white/10 rounded-lg p-2">
+                <Image
+                  src="/logo/Startup-India.png"
+                  alt="Startup India"
+                  width={64}
+                  height={64}
+                  className="object-contain"
+                />
+              </div>
             </div>
           </div>
           
@@ -77,29 +99,33 @@ export default function Footer() {
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="bg-white/10 p-2 rounded-full hover:bg-white hover:text-[#523831] transition-all"
+                aria-label="LinkedIn"
               >
                 <Linkedin size={20} />
               </a>
               <a 
-                href="https://instagram.com/narga_engineering" 
+                href="https://www.instagram.com/nargaengineering/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="bg-white/10 p-2 rounded-full hover:bg-white hover:text-[#523831] transition-all"
+                aria-label="Instagram"
               >
                 <Instagram size={20} />
               </a>
               <a 
-                href="https://facebook.com/nargaengineering" 
+                href="https://wa.me/917075572180" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="bg-white/10 p-2 rounded-full hover:bg-white hover:text-[#523831] transition-all"
+                aria-label="WhatsApp"
               >
-                <Facebook size={20} />
+                <MessageCircle size={20} />
               </a>
             </div>
-            <div className="text-xs text-white/50">
+            <div className="text-xs text-white/50 space-y-1">
               <p>ISO 9001:2015 Certified</p>
               <p>ISO 27001 Certified</p>
+              <p>AS9100D Certified</p>
             </div>
           </div>
         </div>
@@ -109,6 +135,8 @@ export default function Footer() {
           <div className="flex gap-6">
             <Link href="/privacy" className="hover:text-white">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-white">Terms of Service</Link>
+            <Link href="/trademark" className="hover:text-white">Trademark</Link>
+            <Link href="/copyright" className="hover:text-white">Copyright</Link>
           </div>
         </div>
       </div>
