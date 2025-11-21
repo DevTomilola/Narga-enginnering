@@ -1,16 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    turbo: {
-      rules: {
-        '*.css': {
-          loaders: ['postcss-loader'],
-          as: '*.css',
-        },
-      },
-    },
+  // Ensure trailingSlash is consistent
+  trailingSlash: false,
+  
+  // Enable React strict mode
+  reactStrictMode: true,
+  
+  // If using static exports (optional)
+  // output: 'export',
+  
+  // If you have images from external domains
+  images: {
+    domains: [],
+    unoptimized: true, // Only if using static export
   },
-  optimizeFonts: false,
 }
 
 module.exports = nextConfig
